@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./index.css"
+// import "./index.css"
 import { PokemonCard } from "./PokemonCard";
 
 
@@ -15,18 +15,20 @@ export const Pokemon = () => {
     const fetchPokemon = async() => {
         try {
             const res = await fetch(API);
+            // console.log("res:",res);
             const data = await res.json()
+            console.log("data:",data);
             
             const detailedPokemon = data.results.map( async(curElem) => {
                 // console.log(curElem.url);
                 const res = await fetch(curElem.url);
                 const data = await res.json();
-                // console.log(data);
+                // console.log("url:",data);
                 return data;
             })
             //  console.log(detailedPokemon);
             const detailedResponse = await Promise.all(detailedPokemon);
-            console.log(detailedResponse);
+            // console.log(detailedResponse);
             setPokemon(detailedResponse);
             setLoading(false);
 
@@ -73,8 +75,7 @@ export const Pokemon = () => {
         <div>
             <ul className="cards">
                 {
-                    //  pokemon.map((curPokemon) => 
-                        
+                    //  pokemon.map((curPokemon) =>  
                         searchData.map((curPokemon) =>   {
                        return <PokemonCard key={curPokemon.id} pokemonData={curPokemon}/>
                     })
